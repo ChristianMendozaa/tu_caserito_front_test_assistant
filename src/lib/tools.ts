@@ -2,7 +2,8 @@
 export async function handleToolCall(functionName: string, args: any) {
     if (functionName === "registrar_venta") {
         try {
-            const response = await fetch("http://localhost:8000/api/tools/registrar_venta", {
+            const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+            const response = await fetch(`${backendUrl}/api/tools/registrar_venta`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(args)

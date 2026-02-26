@@ -16,7 +16,8 @@ export function useWebRTC() {
     const startSession = async () => {
         try {
             // 1. Get ephemeral token from the FastAPI backend
-            const tokenResponse = await fetch("http://localhost:8000/session");
+            const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+            const tokenResponse = await fetch(`${backendUrl}/session`);
             if (!tokenResponse.ok) throw new Error("Failed to get token");
             const { client_secret } = await tokenResponse.json();
             const ephemeralKey = client_secret.value;
